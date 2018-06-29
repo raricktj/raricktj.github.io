@@ -28,8 +28,8 @@ user-select: none;
 <script>
 
 var svg = d3.select("svg"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
+    width = + svg.attr("width"),
+    height = + svg.attr("height");
 
 var color = d3.scaleOrdinal(d3.schemeCategory20);
 
@@ -38,10 +38,10 @@ var simulation = d3.forceSimulation()
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
 
- var date = <?php echo $month; ?>;
 
+var month = <?php echo htmlspecialchars($_GET["month"]) ?>;
 
-d3.json("graphData/" + date + "-graph.json", function(error, graph) {
+d3.json("graphData/" + month + "-graph.json", function(error, graph) {
   if (error) throw error;
 
   var link = svg.append("g")
