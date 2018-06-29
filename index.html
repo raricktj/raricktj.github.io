@@ -38,7 +38,7 @@ var simulation = d3.forceSimulation()
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
 
-var month = "<?php echo $month; ?>"
+var month = <?php echo $month; ?>
 
 d3.json("graphData/" + month + "-graph.json", function(error, graph) {
   if (error) throw error;
