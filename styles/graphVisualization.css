@@ -1,0 +1,17 @@
+.links line {
+  stroke: #999999;
+  stroke-opacity: 0.6;
+}
+
+.nodes circle {
+  stroke: #ffffff;
+  stroke-width: 1.5px;
+}
+
+svg text {
+cursor: default;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
