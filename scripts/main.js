@@ -47,20 +47,29 @@ function NodeRadius(d){
     return 3*Math.sqrt(d.degree);
 }
 
-function NodeHoverText(d) { 
+function NodeHoverText(d) {
     return d.id + '\n' + 'Degree: ' + d.degree; 
 }
 
 function ticked() {
+    circ
+        .attr("cx", function(d) {
+            var radius = 3*Math.sqrt(d.degree);
+            return d.x = Math.max(radius, 
+                                  Math.min(width - radius, d.x));
+        })
+        .attr("cy", function(d) {
+            var radius = 3*Math.sqrt(d.degree);
+            return d.y = Math.max(radius, 
+                                  Math.min(height - radius, d.y)); 
+        });
+    
     link
         .attr('x1', function(d) { return d.source.x; })
         .attr('y1', function(d) { return d.source.y; })
         .attr('x2', function(d) { return d.target.x; })
         .attr('y2', function(d) { return d.target.y; });
 
-    circ
-        .attr('cx', function(d) { return d.x; })
-        .attr('cy', function(d) { return d.y; });
 }
 
 RenderMain();
