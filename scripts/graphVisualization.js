@@ -28,50 +28,45 @@ d3.json('graphData/' + month + '-graph.json', function(error, graph) {
         .enter();
 
   var circ = node.append('circle')
-        .attr('r', function(d) { return 3*Math.sqrt(d.degree); })
-        .attr('fill', function(d) { return d.color; })
+        .attr('r', function(d) { 
+            return NodeRadius(d); 
+        })
+        .attr('fill', function(d) {
+            return d.color; 
+        })
         .call(d3.drag()
             .on('start', dragstarted)
             .on('drag', dragged)
             .on('end', dragended));
 
-  circ.append('title')
-      .text(function(d) { 
-        return d.id + '\n' +
-               'Degree: ' + d.degree });
+    circ.append('title')
+        .text(function(d){
+            return NodeHoverText(d);
+        });
 
-  simulation.nodes(graph.nodes)
-      .on('tick', ticked);
+    simulation.nodes(graph.nodes)
+        .on('tick', ticked);
 
-  simulation.force('link')
-      .links(graph.links);
+    simulation.force('link')
+        .links(graph.links);
 
-  function ticked() {
-    link
-        .attr('x1', function(d) { return d.source.x; })
-        .attr('y1', function(d) { return d.source.y; })
-        .attr('x2', function(d) { return d.target.x; })
-        .attr('y2', function(d) { return d.target.y; });
+    function ticked() {
+        link
+            .attr('x1', function(d) { return d.source.x; })
+            .attr('y1', function(d) { return d.source.y; })
+            .attr('x2', function(d) { return d.target.x; })
+            .attr('y2', function(d) { return d.target.y; });
 
-    circ
-        .attr('cx', function(d) { return d.x; })
-        .attr('cy', function(d) { return d.y; });
-  }
+        circ
+            .attr('cx', function(d) { return d.x; })
+            .attr('cy', function(d) { return d.y; });
+    }
 });
 
-function dragstarted(d) {
-  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-  d.fx = d.x;
-  d.fy = d.y;
+function NodeRadius(d){
+    return 3*Math.sqrt(d.degree);
 }
 
-function dragged(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-}
-
-function dragended(d) {
-  if (!d3.event.active) simulation.alphaTarget(0);
-  d.fx = null;
-  d.fy = null;
+function NodeHoverText(d) { 
+    return d.id + '\n' + 'Degree: ' + d.degree; 
 }
