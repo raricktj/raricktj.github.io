@@ -20,7 +20,8 @@ function RenderMain(){
 
         circ = node.append('circle')
             .attr('r', function(d) { 
-                return NodeRadius(d); 
+                d.radius = NodeRadius(d);
+                return d.radius
             })
             .attr('fill', function(d) {
                 return d.color; 
@@ -54,13 +55,12 @@ function NodeHoverText(d) {
 function ticked() {
     circ
         .attr("cx", function(d) {
-            return d.x = Math.max(d.r, 
-                                  Math.min(width - d.r, d.x));
+            return d.x = Math.max(d.radius,
+                                  Math.min(width - d.radius, d.x));
         })
         .attr("cy", function(d) {
-            var radius = 3*Math.sqrt(d.degree);
-            return d.y = Math.max(d.r, 
-                                  Math.min(height - d.r, d.y)); 
+            return d.y = Math.max(d.radius,
+                                  Math.min(height - d.radius, d.y)); 
         });
     
     link
