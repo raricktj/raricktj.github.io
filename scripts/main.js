@@ -54,14 +54,13 @@ function NodeHoverText(d) {
 function ticked() {
     circ
         .attr("cx", function(d) {
-            var radius = 3*Math.sqrt(d.degree);
             return d.x = Math.max(radius, 
-                                  Math.min(width - radius, d.x));
+                                  Math.min(width - d.r, d.x));
         })
         .attr("cy", function(d) {
             var radius = 3*Math.sqrt(d.degree);
             return d.y = Math.max(radius, 
-                                  Math.min(height - radius, d.y)); 
+                                  Math.min(height - d.r, d.y)); 
         });
     
     link
