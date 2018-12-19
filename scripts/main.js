@@ -54,12 +54,12 @@ function NodeHoverText(d) {
 function ticked() {
     circ
         .attr("cx", function(d) {
-            return d.x = Math.max(radius, 
+            return d.x = Math.max(d.r, 
                                   Math.min(width - d.r, d.x));
         })
         .attr("cy", function(d) {
             var radius = 3*Math.sqrt(d.degree);
-            return d.y = Math.max(radius, 
+            return d.y = Math.max(d.r, 
                                   Math.min(height - d.r, d.y)); 
         });
     
