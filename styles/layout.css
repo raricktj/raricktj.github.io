@@ -1,0 +1,30 @@
+html, body {
+    display: table;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+
+    --webkit-transform: translate3d(0,0,0);
+}
+
+div#monthSelectorRegion {
+    display: relative;
+    background-color: none;
+    width: 100%;
+    height: 25px;
+}
+
+div#content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    top: 0;
+    left: 0;
+}
+
+select#monthSelector {
+    position: absolute;
+}
