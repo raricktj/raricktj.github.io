@@ -1,9 +1,26 @@
-var width = window.innerWidth - 20;
-var height = window.innerHeight - 40;
+var width = 1000;
+var height = 1000;
 
-var svg = d3.select('svg')
-    .attr('width', width)
-    .attr('height', height);
+var zoom = d3.zoom()
+    .scaleExtent([0.5, 2])
+    .on('zoom',function(){
+        svg.transition()
+            .ease(d3.easeQuadOut)
+            .attr('transform', d3.event.transform);
+    });
+
+var svg = d3.select('div#content').append('svg')
+    .attr('id', 'mainWindow')
+    .attr('width', '100%')
+    .attr('height', '100%')
+    .attr('viewBox', '0 0 1000 1000')
+    .attr('preserveAspectRatio', 'xMidYMid')
+    .call(zoom)
+    .on('contextmenu', function(){
+        d3.event.preventDefault();
+        d3.select('#mainWindow').call(zoom.transform, d3.zoomIdentity);
+    })
+    .append('g');
 
 var simulation = d3.forceSimulation()
     .force('link', d3.forceLink().id(function(d) { return d.id; }))
